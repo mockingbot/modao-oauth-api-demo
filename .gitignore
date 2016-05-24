@@ -1,0 +1,4 @@
+.git/
+public/
+sessions/
+node_modules/
