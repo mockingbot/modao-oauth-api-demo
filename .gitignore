@@ -2,3 +2,4 @@
 public/
 sessions/
 node_modules/
+.env

@@ -5,16 +5,18 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var app = express();
 
+app.set('port', (process.env.PORT || 5000));
+
 var session = require('express-session');
 
 var FileStore = require('session-file-store')(session);
 
 var oauth_host = 'https://modao.cc';
-var host = 'http://localhost:3001';
+var host = 'https://modao-oauth-api-demo.herokuapp.com';
 
 app.use(session({
   name: '_modao_api_demo',
-  secret: process.env.APP_SECRET
+  secret: process.env.APP_SECRET,
   saveUninitialized: true,
   resave: true,
   store: new FileStore(),
@@ -91,6 +93,6 @@ app.get('/auth/Mockingbot/callback', function (req, res) {
   });
 });
 
-app.listen(3001, function () {
-  console.log('Example app listening on port 3001!');
+app.listen(app.get('port'), function () {
+  console.log('Node app is running on port', app.get('port'));
 });
