@@ -1,8 +1,27 @@
-
-{{#if user_name}}
-  <h1>{{user_name}}</h1>
-  <img src="{{avatar}}" alt="{{user_name}}" />
-  <p1><a href="/logout">logout</a></p1>
-{{else}}
-  <a href="/login">login</a>
-{{/if}}
+<section class="container grid-960">
+  {{#if user_name}}
+    <h1 class="text-center">{{user_name}}</h1>
+    <div class="columns text-center">
+      <div class="column col-12">
+        <figure class="avatar avatar-xl">
+          <img src="{{avatar}}" alt="{{user_name}}" />
+        </figure>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="/logout">
+        <button class="btn btn-primary">
+          logout
+        </button>
+      </a>
+    </p>
+  {{else}}
+  <div class="text-center">
+    <a href="/login">
+      <button class="btn btn-primary">
+        login with mMckingBot
+      </button>
+    </a>
+  </div>
+  {{/if}}
+</section>
