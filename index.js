@@ -18,6 +18,9 @@ var host = 'https://modao-oauth-api-demo.herokuapp.com';
 
 app.use(session({
   name: '_modao_api_demo',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true },
   secret: process.env.APP_SECRET,
   store: new RedisStore({ client: redisClient })
 }));
