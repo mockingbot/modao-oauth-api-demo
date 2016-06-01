@@ -39,9 +39,8 @@ app.get('/', function (req, res) {
         'Authorization': 'Bearer ' + req.session['token']
       }
     })
-    .then(function (response) {
-      return response.json();
-    })
+    .then(status)
+    .then(json)
     .then(function (user_info) {
       res.render('index', {
         user_name: user_info.name,
@@ -87,9 +86,8 @@ app.get('/auth/Mockingbot/callback', function (req, res) {
     method: 'post',
     body: queryString.stringify(payload)
   })
-  .then(function (response) {
-    return response.json();
-  })
+  .then(status)
+  .then(json)
   .then(function (data) {
     var token = data.access_token;
     req.session['token'] = token;
@@ -99,6 +97,18 @@ app.get('/auth/Mockingbot/callback', function (req, res) {
     console.log('Request failed', error);
   });
 });
+
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
+}
+
+function json(response) {
+  return response.json()
+}
 
 app.listen(app.get('port'), function () {
   console.log('Node app is running on port', app.get('port'));
