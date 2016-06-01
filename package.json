@@ -9,12 +9,14 @@
   "author": "plrthink <plrthink@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "connect-redis": "^3.0.2",
     "es6-promise": "^3.2.1",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.13.0",
     "isomorphic-fetch": "^2.2.1",
     "query-string": "^4.1.0",
+    "redis": "^2.6.0-2",
     "session-file-store": "^0.2.0"
   }
 }

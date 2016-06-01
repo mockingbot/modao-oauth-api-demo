@@ -7,9 +7,11 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
+var redisClient = require('redis').createClient(process.env.REDIS_URL);
+
 var session = require('express-session');
 
-var FileStore = require('session-file-store')(session);
+var RedisStore = require('connect-redis')(session);
 
 var oauth_host = 'https://modao.cc';
 var host = 'https://modao-oauth-api-demo.herokuapp.com';
@@ -17,12 +19,8 @@ var host = 'https://modao-oauth-api-demo.herokuapp.com';
 app.use(session({
   name: '_modao_api_demo',
   secret: process.env.APP_SECRET,
-  saveUninitialized: true,
-  resave: true,
-  store: new FileStore(),
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  store: new RedisStore({ client: redisClient })
 }));
-
 
 app.engine('handlebars', exphbs({defaultLayout: 'default'}));
 app.set('view engine', 'handlebars');
@@ -30,10 +28,29 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.render('index', {
-    user_name: req.session['user_name'],
-    avatar: req.session['avatar']
-  });
+  if(req.session['token']) {
+    fetch(oauth_host + '/api/v1/user_info', {
+      method: 'get',
+      headers: {
+        'Authorization': 'Bearer ' + req.session['token']
+      }
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (user_info) {
+      res.render('index', {
+        user_name: user_info.name,
+        avatar: user_info.avatar
+      });
+    })
+    .catch(function (error) {
+      console.error('Request failed', error);
+    });
+  } else {
+    res.render('index');
+  }
+
 });
 
 app.get('/login', function (req, res) {
@@ -70,26 +87,12 @@ app.get('/auth/Mockingbot/callback', function (req, res) {
     return response.json();
   })
   .then(function (data) {
-    return Promise.resolve(data.access_token);
-  })
-  .then(function (access_token) {
-    return fetch(oauth_host + '/api/v1/user_info', {
-      method: 'get',
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      }
-    })
-  })
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (user_info) {
-    req.session['user_name'] = user_info.name;
-    req.session['avatar'] = user_info.avatar;
+    var token = data.access_token
+    req.session['token'] = token;
     res.redirect('/');
   })
   .catch(function (error) {
-    console.log('Request failed', error);
+    console.error('Request failed', error);
   });
 });
 
