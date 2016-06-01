@@ -20,7 +20,6 @@ var host = 'https://modao-oauth-api-demo.herokuapp.com';
 app.use(cookieParser(process.env.APP_SECRET));
 
 app.use(session({
-  name: '_modao_api_demo',
   saveUninitialized: true,
   resave: true,
   secret: process.env.APP_SECRET,
@@ -50,7 +49,7 @@ app.get('/', function (req, res) {
       });
     })
     .catch(function (error) {
-      console.error('Request failed', error);
+      console.log('Request failed', error);
     });
   } else {
     res.render('index');
@@ -97,7 +96,7 @@ app.get('/auth/Mockingbot/callback', function (req, res) {
     res.redirect('/');
   })
   .catch(function (error) {
-    console.error('Request failed', error);
+    console.log('Request failed', error);
   });
 });
 
