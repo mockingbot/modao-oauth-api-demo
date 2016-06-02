@@ -49,6 +49,7 @@ app.get('/', function (req, res) {
     })
     .catch(function (error) {
       console.log('Request failed', error);
+      res.redirect('/'logout);
     });
   } else {
     res.render('index');
