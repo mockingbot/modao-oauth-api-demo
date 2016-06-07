@@ -4,9 +4,12 @@ var queryString = require('query-string');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var cookieParser = require('cookie-parser');
+var morgan = require('morgan')
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
+
+app.use(morgan('combined'));
 
 var redisClient = require('redis').createClient(process.env.REDIS_URL);
 
