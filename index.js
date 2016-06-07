@@ -27,7 +27,7 @@ app.use(session({
   resave: true,
   secret: process.env.APP_SECRET,
   store: new RedisStore({ client: redisClient }),
-  cookie: { secure: true, maxAge: 60000 }
+  cookie: { secure: true }
 }));
 
 app.engine('handlebars', exphbs({defaultLayout: 'default'}));
