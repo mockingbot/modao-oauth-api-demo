@@ -4,31 +4,23 @@ var queryString = require('query-string');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var cookieParser = require('cookie-parser');
-var morgan = require('morgan')
+var morgan = require('morgan');
+var cookieSession = require('cookie-session');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(morgan('combined'));
-
-var redisClient = require('redis').createClient(process.env.REDIS_URL);
-
-var session = require('express-session');
-
-var RedisStore = require('connect-redis')(session);
-
 var oauth_host = 'https://modao.cc';
 var host = 'https://modao-oauth-api-demo.herokuapp.com';
 
 app.use(cookieParser(process.env.APP_SECRET));
 
-app.use(session({
-  saveUninitialized: true,
-  resave: true,
+app.use(cookieSession({
+  name: '_MBIPA_',
   secret: process.env.APP_SECRET,
-  store: new RedisStore({ client: redisClient }),
-  cookie: { secure: true }
-}));
+  maxAge: 1000 * 60 * 60 * 24
+}))
 
 app.engine('handlebars', exphbs({defaultLayout: 'default'}));
 app.set('view engine', 'handlebars');
