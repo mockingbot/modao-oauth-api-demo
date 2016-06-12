@@ -64,9 +64,8 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/logout', function (req, res) {
-  req.session.destroy(function(err) {
-    res.redirect('/');
-  });
+  req.session = null
+  res.redirect('/');
 });
 
 app.get('/auth/Mockingbot/callback', function (req, res) {
