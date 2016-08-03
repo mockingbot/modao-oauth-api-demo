@@ -14,9 +14,9 @@
 
 2. 墨刀重定向至你的网站d
 
-	当用户成功授权你的网站后，会被重定向至 redirect_uri，并带有 state 和 code 参数，如果 state 与上一步的 state 不相同，那么这个请求则来自于第三方的网站，请立即终止 OAuth 流程，否则将会带来安全隐患。
+	当用户成功授权你的网站后，会被重定向至 `redirect_uri`，并带有 `state` 和 `code` 参数，如果 `state` 与上一步的 `state` 不相同，那么这个请求则来自于第三方的网站，请立即终止 `OAuth` 流程，否则将会带来安全隐患。
 
-3. 使用 code 交换 access_token
+3. 使用 `code` 交换 `access_token`
 
 	```
 	POST https://modao.cc/oauth2/v1/token
@@ -34,7 +34,7 @@
 
 	```
 	{
-	  access_token:"77d5656ff6e8701072b788d8ba98dfaa6ffe8004d6302cafd59ed6929d604022"
+access_token:"77d5656ff6e8701072b788d8ba98dfaa6ffe8004d6302cafd59ed6929d604022"
 	  created_at:1464001132
 	  expires_in:7200
 	  scope:"user_info"
@@ -42,11 +42,11 @@
 	}
 	```
 
-4. 使用 access_token 请求 API
+4. 使用 `access_token` 请求 API
 
-	使用 access_token 请求 API 时，需要设置如下的 HTTP hearder：
-	Authorization: Bearer ACCESS_TOKEN
-	其中，ACCESS_TOKEN 是上一步交换回的 access_token
+	使用 `access_token` 请求 `API` 时，需要设置如下的 `HTTP hearder`：
+	```Authorization: Bearer ACCESS_TOKEN```
+	其中，`ACCESS_TOKEN` 是上一步交换回的 `access_token`
 
 
 # API:
@@ -60,8 +60,8 @@
 
 	```
 	{  
-	  "name":"44",
-	  "avatar":"https://localhost/images/avatar.png"
+	  "name": "44",
+	  "avatar": "https://localhost/images/avatar.png"
 	}
 	```
 
@@ -93,27 +93,27 @@
 
 3. 用户所属的团队
 
-		```GET https://modao.cc/api/v1/user_teams.json```
+	```GET https://modao.cc/api/v1/user_teams.json```
 
-		返回示例：
+	返回示例：
 
-		```
-		{  
-		  "created_teams":[  
-		    {  
-		      "cid":"te9164A9A27A1470194071498",
-		      "owner_id":11,
-		      "owner_name":"44",
-		      "owner_avatar":"/images/avatar.png",
-		      "expired":false,
-		      "limitation":1,
-		      "icon":"music",
-		      "color":"RGB(255,255,247)",
-		      "name":"测试团队"
-		    }
-		  ],
-		  "joined_teams":[]
-		}
+	```
+	{  
+	  "created_teams":[  
+	    {  
+	      "cid":"te9164A9A27A1470194071498",
+	      "owner_id":11,
+	      "owner_name":"44",
+	      "owner_avatar":"/images/avatar.png",
+	      "expired":false,
+	      "limitation":1,
+	      "icon":"music",
+	      "color":"RGB(255,255,247)",
+	      "name":"测试团队"
+	    }
+	  ],
+	  "joined_teams":[]
+	}
 		```
 
 
