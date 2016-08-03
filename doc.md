@@ -114,8 +114,9 @@ access_token:"77d5656ff6e8701072b788d8ba98dfaa6ffe8004d6302cafd59ed6929d604022"
 	  ],
 	  "joined_teams":[]
 	}
-		```
+	```
 
 
-Demo App:
-https://github.com/mockingbot/modao-oauth-api-demo
+
+# Demo App:
+[https://github.com/mockingbot/modao-oauth-api-demo](https://github.com/mockingbot/modao-oauth-api-demo)
