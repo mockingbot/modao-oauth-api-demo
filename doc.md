@@ -10,6 +10,7 @@
 	client_id      -  在墨刀开发者平台上获得的 client_id
 	response_type  -  "code"
 	state          -  随机字符串，用来防止 CSRF 攻击
+	scope          -  user_info+user_projects
 	```
 
 2. 墨刀重定向至你的网站d
@@ -59,7 +60,7 @@ access_token:"77d5656ff6e8701072b788d8ba98dfaa6ffe8004d6302cafd59ed6929d604022"
 	返回示例：
 
 	```
-	{  
+	{
 	  "name": "44",
 	  "avatar": "https://localhost/images/avatar.png"
 	}
@@ -72,9 +73,9 @@ access_token:"77d5656ff6e8701072b788d8ba98dfaa6ffe8004d6302cafd59ed6929d604022"
 	返回示例：
 
 	```
-	{  
-	  "created_apps":[  
-	    {  
+	{
+	  "created_apps":[
+	    {
 	      "name":"123",
 	      "logo":null,
 	      "splash":null,
@@ -98,9 +99,9 @@ access_token:"77d5656ff6e8701072b788d8ba98dfaa6ffe8004d6302cafd59ed6929d604022"
 	返回示例：
 
 	```
-	{  
-	  "created_teams":[  
-	    {  
+	{
+	  "created_teams":[
+	    {
 	      "cid":"te9164A9A27A1470194071498",
 	      "owner_id":11,
 	      "owner_name":"44",
